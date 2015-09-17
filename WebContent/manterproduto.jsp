@@ -156,65 +156,19 @@
 				</ol>
 			</div>
 			<div class="row">
-				<div class="col-sm-4 col-sm-offset-1">
+				<div class="col-sm-4 col-sm-offset-0">
 					<div class="login-form">
 						<!--Manter Produto form-->
 						<h2>Cadastrar Produto</h2>
 
-						<form action="ProdutoServlet" method="post">
-
-							<input type="text" name="CodProduto"
-								placeholder="Codigo do produto" required="required" /> <input
-								type="date" name="DataProduto" placeholder="Data do produto" 
-								required="required" /> <input type="text" name="NomeProduto"
-								placeholder="Nome do produto" required="required" /> <input
-								type="text" name="Medida" placeholder="Unidade de medida"
-								required="required" /> <input type="text" name="Tipo"
-								placeholder="Tipo/categoria do produto" required="required" />
-							<input type="number" name="Quantidade"
-								placeholder="Quantidade do produto" required="required" /> <input
-								type="number" name="ValorInicial"
-								placeholder="Valor inicial do produto" required="required"
-								step="0.5" /> <input type="hidden" name="acao" value="inserir">
-							<span> </span>
-							<button type="submit" class="btn btn-default">Inserir</button>
-						</form>
-					</div>
-					<!--/login form-->
+				<div >
 				</div>
-				<div class="col-sm-1">
-					<h2 class="or">OU</h2>
 				</div>
-				<div class="col-sm-4">
-					<div class="signup-form">
-						<!--sign up form-->
-						<h2>Alterar Produto</h2>
-						<form action="ProdutoServlet" method="post">
-
-							<input type="text" name="CodProduto"
-								placeholder="Codigo do produto" required="required" /> <input
-								type="text" name="DataProduto" placeholder="Data do produto"
-								required="required" /> <input type="text" name="NomeProduto"
-								placeholder="Nome do produto" required="required" /> <input
-								type="text" name="Medida" placeholder="Unidade de medida"
-								required="required" /> <input type="text" name="Tipo"
-								placeholder="Tipo/categoria do produto" required="required" />
-							<input type="number" name="Quantidade"
-								placeholder="Quantidade do produto" required="required" />
-								 <input	type="number" name="ValorInicial" placeholder="Valor inicial do produto" required="required" step="0.5" /> 
-								 <input type="hidden" name="acao" value="alterar">
-
-							<button type="submit" class="btn btn-default">Alterar</button>
-						</form>
-					</div>
-					<!--/sign up form-->
-				</div>
-
+				</div>	
+				
 			</div>
 			<div>
-				<p>
-				<p>
-			</div>
+				
 
 			<%
 				List<Produto> produtos = (List<Produto>) session
@@ -282,8 +236,9 @@
 				<div class="breadcrumbs">
 					<ol class="breadcrumb">
 						<li><a href="index.html">Inicio</a></li>
-						<li><a href="login.jsp">Login</a>
-						<li><a href="MinhaConta.html">Alterar</a>
+						<li><a href="inserirproduto.jsp">Inserir</a>
+						<li><a href="alterarproduto.jsp">Alterar</a>
+						
 					</ol>
 
 				</div>
