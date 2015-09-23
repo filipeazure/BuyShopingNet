@@ -194,6 +194,20 @@
 		
 
 	</section>
+	
+	
+	<fieldset><legend>Produto</legend>
+	
+	fdDFGsdgassssssssssssssssssssssssss
+	asasd
+	asd
+	as
+	d
+	asd
+	
+	
+	</fieldset><br>
+	
 	<!--/form-->
 	<footer id="footer">
 		<!--Footer-->

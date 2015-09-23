@@ -1,6 +1,7 @@
 package br.com.BuyShoppingNet.CONTROLE;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+
+
+
 import br.com.BuyShoppingNet.DAO.ProdutoDAO;
 import br.com.BuyShoppingNet.VO.Produto;
+
+
+
 
 
 /**
@@ -47,7 +54,7 @@ public class ProdutoServlet extends HttpServlet {
 
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 
-			produtoDAO.inserirPessoa(produto);
+			produtoDAO.inserirProduto(produto);
 			request.getSession(true).setAttribute("lista",
 					produtoDAO.listarProduto());
 
@@ -104,6 +111,26 @@ public class ProdutoServlet extends HttpServlet {
 					.getRequestDispatcher("index.html");
 			direcionador.forward(request, response);
 		}
+		
+		
+	else if (acao.equals("consultar")) {
+
+			ProdutoDAO dao = new ProdutoDAO();
+			
+			String consultaItem = request.getParameter("consulta");
+					
+			
+			List<Produto> lista = dao.consultarTodos(consultaItem);
+			request.getSession(true).setAttribute("lista",lista);	
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("manterproduto.jsp");
+			dispatcher.forward(request, response);
+	
+			
+		}
+		
+		
+		
 	}
 
 	protected void doGet(HttpServletRequest request,

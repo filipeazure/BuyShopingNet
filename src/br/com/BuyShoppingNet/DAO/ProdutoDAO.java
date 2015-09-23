@@ -11,7 +11,7 @@ import java.util.List;
 import br.com.BuyShoppingNet.VO.Produto;
 
 public class ProdutoDAO {
-	public void inserirPessoa(Produto objProduto) {
+	public void inserirProduto(Produto objProduto) {
 
 		String sqlInsercao = "insert into produto(CodProduto,NomeProduto,DataProduto,Medida,Tipo,Quantidade,ValorInicial) values (?,?,?,?,?,?,?)";
 		PreparedStatement pstm = null;
@@ -80,28 +80,71 @@ public class ProdutoDAO {
 		}
 
 	}
-	/*
-	public void excluirPessoa(Pessoa ObjPessoa) {
-		String sqlExclusao = "delete from tbUsuario where login = ?";
-		PreparedStatement pstm = null;
+	
+	
+	/**
+	 * Retorna a lista de produtos usando lista
+	 * @return Consulta de produtos 
+	 */
+	 public List<Produto> consultarTodos (String consultaItem) {
+		ArrayList<Produto> produtoss = new ArrayList<Produto>();
+		
 		Connection objCon = null;
-
+		ResultSet rs = null;
+		String consultarSQL = "select * from produto";
+		
+		
 		try {
-			objCon = ConexaoDAO.getConnection();
-			pstm = objCon.prepareStatement(sqlExclusao);
-			pstm.setString(1, ObjPessoa.get);
-			pstm.executeUpdate();
-			System.out.println("Exclusao Feita com Sucesso!");
+		
+		    objCon = ConexaoDAO.getConnection();
+			
+			// Criando um objeto PreparedStatement 
+			PreparedStatement pstm;
+			
+			if(consultaItem != null){
+				
+				String consultaItemUpper = consultaItem.toUpperCase();
+				
+				consultarSQL =  consultarSQL + " where upper(CodProduto) like ? or upper(NomeProduto) like ? or upper(Tipo) like ?"; 
+				pstm = objCon.prepareStatement(consultarSQL);
+				pstm.setString(1, "%"+ consultaItemUpper +"%");
+				pstm.setString(2, "%"+consultaItemUpper+"%");
+				pstm.setString(3, "%"+consultaItemUpper+"%");
+				rs = pstm.executeQuery();
+		
+			}
+		
+			
+			while (rs.next()) {
+				Produto produto = new Produto();
+				
+				produto.setCodProduto(rs.getString("CodProduto"));
+				produto.setNomeProduto(rs.getString("NomeProduto"));
+				produto.setDataProduto(rs.getString("DataProduto"));
+				produto.setMedida(rs.getString("Medida"));
+				produto.setTipo(rs.getString("Tipo"));
+				produto.setQuantidade(rs.getInt("Quantidade"));
+				produto.setValorInicial(rs.getDouble("ValorInicial"));
+				
+				produtoss.add(produto);
+			 
+			}
 		} catch (Exception e) {
-			System.out.println("Erro na exclusao do Usuario!\nMotivo: "
-					+ e.getMessage());
+			e.printStackTrace();
+			System.out.println("Erro na consulta de produtos");
 		} finally {
-			ConexaoDAO.closeConnection(objCon, pstm, null);
+			ConexaoDAO.closeConnection(null, null, null);
 		}
-
+		return produtoss;
 	}
-*/
-	public Produto consultarPessoa(String CodProduto) {
+	 
+	
+	 /**
+		 * Retorna um resultset de produtos.
+		 * @return ResultSet consulta de produtos
+		 */
+	public Produto consultarProduto(String CodProduto) {
+				
 		Produto objProduto = new Produto();
 		String sqlConsulta = "select NomeProduto,DataProduto,Medida,Tipo,Quantidade,ValorInicial from produto where CodProduto =  ?";
 		PreparedStatement pstm = null;
@@ -135,12 +178,14 @@ public class ProdutoDAO {
 		return objProduto;
 	}
 	
+	
+	
 	/**
 	 * Retorna um resultset de produtos.
 	 * @return ResultSet de produtos
 	 */
 	public ResultSet listarProdutos() {
-		PreparedStatement pstm = null;
+		
 		Connection objCon = null;
 		ResultSet rs = null;
 
@@ -164,7 +209,7 @@ public class ProdutoDAO {
 	 */
 	public List<Produto> listarProduto() {
 		List<Produto> produtos = new ArrayList<Produto>();
-		PreparedStatement pstm = null;
+		
 		Connection objCon = null;
 		ResultSet rs = null;
 

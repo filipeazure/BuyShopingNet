@@ -144,7 +144,10 @@
 		<!--/header-bottom-->
 	</header>
 	<!--/header-->
+<%
+				List<Produto> produtos = (List<Produto>) session.getAttribute("lista");
 
+			%>
 	<section id="form">
 		<!--form-->
 		<div class="container">
@@ -154,29 +157,38 @@
 					<li><a href="manterproduto.jsp">Manter Produto</a></li>
 					<li><a href="ProdutoServlet?acao=listar">Listar</a></li>
 				</ol>
+				<h2>Cadastrar Produto</h2>
 			</div>
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-0">
 					<div class="login-form">
 						<!--Manter Produto form-->
-						<h2>Cadastrar Produto</h2>
+						
 
 				<div >
+				
 				</div>
+				
 				</div>
 				</div>	
-				
-			</div>
+				<form action="ProdutoServlet" method="post">
+							
+							<input type="text" name="consulta" placeholder="Digite sua pesquisa aqui" size="50"> 
+							<input type="hidden" name="acao" value="consultar" />
+							<button type="submit" class="btn btn-default">Consultar</button><br></br>
+							
+					</form>	
+			
 			<div>
 				
 
-			<%
-				List<Produto> produtos = (List<Produto>) session
-						.getAttribute("lista");
-			%>
+			
+			
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
-
+				
+				
+						
 					<%
 					if (produtos != null && !produtos.isEmpty()) {
 					%>
@@ -226,7 +238,7 @@
 						}
 						else{
 							%>
-							<hr/>
+							<hr><hr/>
 							<center>Nenhum produto cadastrado!</center>
 							<%
 						}
@@ -243,6 +255,8 @@
 
 				</div>
 			</div>
+</div>
+</div>
 
 		</div>
 
